@@ -134,7 +134,7 @@ blockquote {
 }
 
 section::after {
-  content: attr(data-marpit-pagination) ' / 13';
+  content: attr(data-marpit-pagination) ' / 14';
   position: absolute;
   bottom: 24px;
   right: 64px;
@@ -188,100 +188,280 @@ Marist Computing Conference 2025
 
 ---
 
+## What is Load Testing?
+
+**Simulating real-world traffic at scale to verify system resilience.**
+
+**When inadequate testing causes catastrophic failures:** [1,2]
+
+- **Ticketmaster (Nov 2022)** - Taylor Swift presale: 3.5B system requests (4x previous peak). Site crashed. Testing hadn't accounted for unprecedented traffic spikes.
+
+- **TSB Bank (Apr 2018)** - £330M cost, 6M customers locked out for weeks. IT migration without full-volume testing in production-like environment. IBM identified insufficient performance testing.
+
+**The impact of proper load testing:** [3]  
+Teams using modern load testing practices report **45% latency reduction, 2x throughput gains, and 70% faster response times**.
+
+Load testing reveals capacity limits and bottlenecks *before* they impact millions of customers.
+
+<style scoped>
+section {
+  font-size: 18px;
+}
+.footnote {
+  font-size: 10px !important;
+  color: #8d8d8d;
+  margin-top: 32px;
+  line-height: 1.2;
+}
+.footnote p {
+  font-size: 10px !important;
+}
+</style>
+
+<div class="footnote">
+
+[1] "Why Load Testing is Important: The Taylor Swift Debacle," TESTINGMIND, Dec. 2022  
+[2] "TSB Bank Data Migration Failure," iceDQ, Jan. 2025  
+[3] N. Yadav, "Real-World Examples of Performance Testing Failures," Testriq, Sep. 2025
+
+</div>
+
+---
+
 ## What Are Mainframes?
 
-Every credit card swipe, ATM withdrawal, airline booking.
+The backbone of global commerce and critical systems.
 
-**30+ billion transactions per day.** 90% of credit card transactions.  
-92 of the top 100 banks use IBM mainframes.
+**30+ billion transactions daily. 90% of all credit card transactions. [1]**  
+**92 of the top 100 banks run on IBM mainframes. [1]**
 
-**Problem:** Testing tools stuck in the 1980s.
+**The problem?** Testing tools frozen in the 1980s.
+
+<style scoped>
+section {
+  font-size: 18px;
+}
+.footnote {
+  font-size: 10px !important;
+  color: #8d8d8d;
+  margin-top: 32px;
+  line-height: 1.2;
+}
+.footnote p {
+  font-size: 10px !important;
+}
+</style>
+
+<div class="footnote">
+
+[1] IBM, "IBM Mainframe Ushers in New Era of Data Protection," Jul. 2017
+
+</div>
 
 ---
 
 ## The Gap
 
-**Mainframe Load test tools (TPNS, Jmeter, IBM Workload Simulator):**
-- Archaic interfaces, sporadic documentation
-- Manually defined configurations
-- Limited extensibility and CI/CD integration
+| **Legacy Tools**<br>TPNS (1976) • JMeter (1998) • WSim (2002) | **Modern Tools**<br>Locust (2012) • k6 (2016) |
+|---|---|
+| **Resource efficiency:**<br>Thread-per-user (1MB+ per thread)<br>Few thousand users max [1,2] | **Resource efficiency:**<br>Event-driven: **14-30x less memory**<br>**100K+ users** per machine [1,2] |
+| **Developer experience:**<br>GUI config, proprietary scripting (REXX/STL),<br>XML management, complex setup [3,4] | **Developer experience:**<br>**Tests-as-code** in Python/JavaScript<br>`pip install` or single binary [3,4] |
+| **CI/CD integration:**<br>Steep learning curve, slow GUI,<br>plugin management, heap tuning [5,6] | **CI/CD integration:**<br>**CLI-native**, pipeline-ready<br>Zero infrastructure [5,6] |
+| **Performance at scale:**<br>Resource-constrained, lower RPS [2,7] | **Performance at scale:**<br>**36% higher RPS**, 200ms better p95 [2,7] |
 
-**Modern load testing (Locust, k6):**
-- Modern scripting, CI/CD native
-- Massive communities, excellent docs
-- Cross-platform skills
+**The breakthrough:** Modern tools + REST APIs = mainframe accessibility.
 
-**Can we bring industry-standard tools to mainframes?**
+<style scoped>
+section {
+  font-size: 16px;
+}
+table {
+  margin-top: 16px;
+  width: 100%;
+  table-layout: fixed;
+}
+th {
+  background-color: #262626;
+  color: #78a9ff;
+  font-size: 19px;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px solid #0f62fe;
+  width: 50%;
+}
+td {
+  padding: 14px 10px;
+  vertical-align: top;
+  line-height: 1.5;
+  width: 50%;
+}
+tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+.footnote {
+  font-size: 9px !important;
+  color: #8d8d8d;
+  margin-top: 20px;
+  line-height: 1.2;
+}
+.footnote p {
+  font-size: 9px !important;
+}
+</style>
+
+<div class="footnote">
+
+[1] N. van der Hoeven, "Comparing k6 and JMeter," Grafana Labs, Feb. 2024  
+[2] T. Koot, "k6 vs. JMeter - Head2Head," LinkedIn, Oct. 2021  
+[3] B. Roy, "JMeter vs k6," TestVagrant Medium, Dec. 2022  
+[4] "JMeter vs. Locust," PFLB, Mar. 2025  
+[5] S. Mamoru, "Advanced Performance Testing with JMeter," Geek Culture Medium, Jun. 2023  
+[6] "LoadRunner vs JMeter," BrowserStack, May 2025  
+[7] "Performance Tools Benchmarking," QAInsights, May 2022
+
+</div>
 
 ---
 
-## The Bridge: z/OS REST APIs
+## The Bridge: Two Enablers
 
-**z/OS components now expose HTTP endpoints:**
+**1. z/OS REST APIs - The modern interface:**
 
-**z/OSMF** - System management (jobs, datasets, consoles)  
-**z/OS Connect** - CICS, IMS, Db2, batch programs  
-**Zowe API Mediation Layer** - Unified API gateway  
-**CICS native** - Direct REST/JSON support in CICS TS
+z/OSMF • z/OS Connect • Zowe API ML • CICS REST  
+HTTP requests = mainframe testing
 
-**This means:** If a tool can make HTTP requests, it can drive z/OS for testing.
+**2. Open-source tooling - The connectivity layer:** [1,2,3,4]
 
-**The door is open.** Now we just need the right tools.
+**x3270/c3270/py3270** - 3270 terminal emulation & automation  
+**ZOAU** - z/OS automation utilities (Python, shell, Node.js)  
+**Galasa** - Integration testing framework (3270, REST, batch, web)  
+**tnz** - Python 3270 library for terminal automation
+
+**The breakthrough:**  
+Modern tools + modern APIs + open-source bridges = mainframe accessibility
+
+<style scoped>
+section {
+  font-size: 17px;
+}
+.footnote {
+  font-size: 10px !important;
+  color: #8d8d8d;
+  margin-top: 32px;
+  line-height: 1.2;
+}
+.footnote p {
+  font-size: 10px !important;
+}
+</style>
+
+<div class="footnote">
+
+[1] "py3270: Python interface to x3270," IBM GitHub, 2025  
+[2] "IBM Z Open Automation Utilities," IBM, 2024  
+[3] "Galasa - Open Source Testing Framework," Open Mainframe Project, 2024  
+[4] "tnz: Tn3270 to Z Python library," IBM GitHub, 2025
+
+</div>
 
 ---
 
 ## The Solution: Adapt, Don't Reinvent
 
-**Two proven tools. Two adaptations.**
+**Two industry-proven tools. Two strategic adaptations.**
 
-🐍 **Locust** (Python) - EA/DICE, AWS, Learnosity [1]
-   → Extended with py3270 plugin for terminal testing
+🐍 **Locust** (Python) - Used by EA/DICE, AWS, Learnosity [1]
+   → Extended with py3270 for 3270 terminal testing
 
-⚡ **k6** (Go) - GitLab, Carvana, fuboTV, Olo  [2]
+⚡ **k6** (Go) - Used by GitLab, Carvana, Olo [1]  
    → Ported to run natively on z/OS
 
-**The insight:** Modern tools already exist.  
+**The breakthrough:** Modern tools already exist.  
 We just made them work on mainframes.
 
-1.
-2.
+<style scoped>
+section {
+  font-size: 18px;
+}
+.footnote {
+  font-size: 10px !important;
+  color: #8d8d8d;
+  margin-top: 32px;
+  line-height: 1.2;
+}
+.footnote p {
+  font-size: 10px !important;
+}
+</style>
 
----
+<div class="footnote">
 
-## How This Works: Two Patterns
+[1] "k6 Testimonials," k6.io, 2025
 
-**Pattern 1: External control node** (Locust, py3270)
-```
-Your Laptop/Jenkins  --HTTP-->  z/OS (z/OSMF, CICS, Zowe)
-                     --Telnet->  z/OS (3270 terminals)
-                     --SSH/FTP--> z/OS (Unix System Services)
-```
-
-**Pattern 2: Native on z/OS** (k6)
-```
-z/OS USS (k6 binary)  --localhost-->  z/OSMF, CICS, Zowe
-                                      (same LPAR / sysplex)
-```
-
-**External:** Run from CI/CD. **Native:** Mainframe tests itself.
-
-**No agents. No mainframe installation for external tools.**
+</div>
 
 ---
 
 ## Why These Tools?
 
-**Scale:** Simulate millions of concurrent users [1]
-**Flexibility:** Dynamic load shapes that change throughout tests  
-**Distributed:** Run across multiple machines for massive load  
-**Extensible:** Rich plugin ecosystems for both tools  
-**Observable:** Real-time metrics and performance monitoring
+**Technical advantages:** [1]  
+• Scale: Millions of concurrent users  
+• Modern architecture: 10-30x more efficient than JMeter  
+• Flexibility: Dynamic load patterns, distributed testing  
+• Observable: Real-time metrics, rich plugin ecosystems
 
-**Locust uses 14-30x less memory than Apache JMeter [2]:** Modern, event-driven architecture.
-<k6 metrics memory usage>
+**Industry adoption & results:** [2,3,4]
 
-1. Source?
-2. Source ?
+**EA/DICE (Locust):** "Mandatory part of development of any large scale HTTP service at DICE"
+
+**Grafana (k6):** "Managed to identify bottlenecks and errors in code before shipping" • "Ensures no performance regression reaches production"
+
+**AWS endorsement:** Published official guides for using Locust on their infrastructure
+
+<style scoped>
+section {
+  font-size: 17px;
+}
+.footnote {
+  font-size: 10px !important;
+  color: #8d8d8d;
+  margin-top: 32px;
+  line-height: 1.2;
+}
+.footnote p {
+  font-size: 10px !important;
+}
+</style>
+
+<div class="footnote">
+
+[1] N. van der Hoeven, "Comparing k6 and JMeter," Grafana Labs, Feb. 2024  
+[2] "Locust testimonials," Locust.io, 2025  
+[3] M. Bergquist, "How we use k6 for developing Grafana," Grafana Labs, Aug. 2021  
+[4] "Using Locust on AWS Elastic Beanstalk," AWS DevOps Blog, Jun. 2022
+
+</div>
+
+---
+
+## How This Works: Two Patterns
+
+**Pattern 1: External control** (Locust + py3270)
+```
+Laptop/CI → HTTP  → z/OSMF, CICS, Zowe
+         → Telnet → 3270 terminals (via py3270)
+         → SSH    → Unix System Services
+```
+
+**Pattern 2: Native execution** (k6)
+```
+z/OS USS → localhost → z/OSMF, CICS, Zowe
+        (same LPAR/sysplex)
+```
+
+**External:** Run from anywhere. **Native:** The mainframe tests itself.
+
+**Zero agents. Zero mainframe installation footprint.**
 
 ---
 
@@ -295,15 +475,37 @@ class MainframeUser(HttpUser):
         assert response.json()["jobid"]
 ```
 
-**Built py3270 plugin** for 3270 terminal testing (locust-plugins PR #206).
+**Open source contribution:** Built py3270 plugin for 3270 terminals [1]  
+**Merged:** locust-plugins PR #206
+
+<style scoped>
+section {
+  font-size: 18px;
+}
+.footnote {
+  font-size: 10px !important;
+  color: #8d8d8d;
+  margin-top: 32px;
+  line-height: 1.2;
+}
+.footnote p {
+  font-size: 10px !important;
+}
+</style>
+
+<div class="footnote">
+
+[1] A. Rahman, "Plugin for Telnet 3270 User," locust-plugins PR #206, Mar. 2024
+
+</div>
 
 ---
 
 ## k6: Native on z/OS ⚡
 
-**The challenge:** Performance + portability. Run tests 24/7 on the mainframe itself.
+**The challenge:** Run performance tests 24/7 on the mainframe itself.
 
-**The solution:** Ported k6 to z/OS (added build flags, fixed dependencies).
+**The solution:** Ported k6 to z/OS—added build flags, fixed dependencies [1]
 ```javascript
 export default function() {
   http.post('https://localhost/zosmf/restjobs/jobs', jobData);
@@ -313,41 +515,60 @@ export default function() {
 $ k6 run test.js --vus 1000 --duration 24h
 ```
 
-**Compiled Go binary. Runs natively. No external dependencies.**
+**Compiled Go binary. Native execution. Zero external dependencies.**
 
-**Ported upstream** - grafana/k6 PR #2892
+<style scoped>
+section {
+  font-size: 18px;
+}
+.footnote {
+  font-size: 10px !important;
+  color: #8d8d8d;
+  margin-top: 32px;
+  line-height: 1.2;
+}
+.footnote p {
+  font-size: 10px !important;
+}
+</style>
+
+<div class="footnote">
+
+[1] A. Rahman, "Update ui_unix.go with z/OS build flags," k6 PR #2892, Feb. 2023
+
+</div>
 
 ---
 
 ## Why This Matters
 
-**Your team already knows these tools.**
+**Your team already has these skills.**
 
 **Before:**
 - $$$/year vendor licenses
 - Mainframe specialists only
-- Separate CI/CD pipelines
+- Isolated tooling
 
 **After:**
 - Open source: $0
-- Any Python/JavaScript/Go developer
-- One pipeline for everything
+- Any Python/JS/Go developer
+- Unified CI/CD pipeline
 
-**The real win:** Transferable skills. Lower costs. No vendor lock-in.
+**The win:** Transferable skills. Lower costs. Zero vendor lock-in.
 
 ---
 
 ## Real-World Impact at IBM Z Test 🎯
 
-**Deployed in production:**
-- IBM Wazi as a Service - Locust testing z/OSMF APIs
-- System testing - Terminal workflows with py3270
-- Customer simulation - k6 running natively on z/OS
+**Production deployments:**
+- **Wazi as a Service** - Locust + z/OSMF APIs
+- **System testing** - py3270 terminal workflows  
+- **Customer simulation** - k6 native on z/OS
 
-**Testing capabilities:**
+**Full testing stack:**
 REST APIs • 3270 Terminals • Batch Jobs • Mixed Workloads • CI/CD Gates
 
-**The proof:** Three production environments. Zero vendor tools.
+**The proof:** Three production environments. Zero legacy tools.
 
 ---
 
@@ -359,16 +580,16 @@ pip install locust py3270
 # or  
 brew install k6  # macOS
 # or
-go install go.k6.io/k6@latest  # Any platform with Go
+go install go.k6.io/k6@latest  # Any platform
 ```
 
 **Read the journey:**
 Medium: @msradam
 - "Swarming Stressed Servers" (Locust + z/OSMF)
 - "Ticks by Telnet" (py3270 plugin)
-- "Go-ing Native" (k6 porting process)
+- "Go-ing Native" (k6 porting)
 
-**Start small:** Pick one vendor test. Rewrite it. See the difference.
+**Start:** Pick one legacy test. Rewrite it. See the difference.
 
 ---
 
@@ -382,4 +603,4 @@ M.S. Computer Engineering Student @ NYU Tandon
 📧 Medium: @msradam  
 💻 github.com/msradam
 
-*"Don't reinvent the wheel—install one through pip."*
+*"Radical efficiency."*
