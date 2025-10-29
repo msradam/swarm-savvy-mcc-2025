@@ -201,14 +201,15 @@ Every credit card swipe, ATM withdrawal, airline booking.
 
 ## The Gap
 
-**Mainframe testing:**
-- Archaic interfaces, sparse documentation
-- Jerry-rigged configurations
-- No CI/CD integration
+**Mainframe Load test tools (TPNS, Jmeter, IBM Workload Simulator):**
+- Archaic interfaces, sporadic documentation
+- Manually defined configurations
+- Limited extensibility and CI/CD integration
 
 **Modern load testing (Locust, k6):**
 - Modern scripting, CI/CD native
 - Massive communities, excellent docs
+- Cross-platform skills
 
 **Can we bring industry-standard tools to mainframes?**
 
@@ -223,7 +224,7 @@ Every credit card swipe, ATM withdrawal, airline booking.
 **Zowe API Mediation Layer** - Unified API gateway  
 **CICS native** - Direct REST/JSON support in CICS TS
 
-**This means:** If a tool can make HTTP requests, it can test z/OS.
+**This means:** If a tool can make HTTP requests, it can drive z/OS for testing.
 
 **The door is open.** Now we just need the right tools.
 
@@ -233,14 +234,17 @@ Every credit card swipe, ATM withdrawal, airline booking.
 
 **Two proven tools. Two adaptations.**
 
-🐍 **Locust** (Python) - EA/DICE, AWS, Learnosity  
+🐍 **Locust** (Python) - EA/DICE, AWS, Learnosity [1]
    → Extended with py3270 plugin for terminal testing
 
-⚡ **k6** (Go) - GitLab, Carvana, fuboTV, Olo  
+⚡ **k6** (Go) - GitLab, Carvana, fuboTV, Olo  [2]
    → Ported to run natively on z/OS
 
 **The insight:** Modern tools already exist.  
 We just made them work on mainframes.
+
+1.
+2.
 
 ---
 
@@ -250,12 +254,13 @@ We just made them work on mainframes.
 ```
 Your Laptop/Jenkins  --HTTP-->  z/OS (z/OSMF, CICS, Zowe)
                      --Telnet->  z/OS (3270 terminals)
+                     --SSH/FTP--> z/OS (Unix System Services)
 ```
 
 **Pattern 2: Native on z/OS** (k6)
 ```
 z/OS USS (k6 binary)  --localhost-->  z/OSMF, CICS, Zowe
-                                      (same LPAR)
+                                      (same LPAR / sysplex)
 ```
 
 **External:** Run from CI/CD. **Native:** Mainframe tests itself.
@@ -266,13 +271,17 @@ z/OS USS (k6 binary)  --localhost-->  z/OSMF, CICS, Zowe
 
 ## Why These Tools?
 
-**Scale:** Simulate millions of concurrent users  
+**Scale:** Simulate millions of concurrent users [1]
 **Flexibility:** Dynamic load shapes that change throughout tests  
 **Distributed:** Run across multiple machines for massive load  
 **Extensible:** Rich plugin ecosystems for both tools  
 **Observable:** Real-time metrics and performance monitoring
 
-**14-30x less memory than JMeter.** Modern, event-driven architecture.
+**Locust uses 14-30x less memory than Apache JMeter [2]:** Modern, event-driven architecture.
+<k6 metrics memory usage>
+
+1. Source?
+2. Source ?
 
 ---
 
@@ -285,8 +294,6 @@ class MainframeUser(HttpUser):
                                     data=jcl)
         assert response.json()["jobid"]
 ```
-
-Used by EA/DICE for Battlelog (Battlefield). Endorsed by Flask creator Armin Ronacher.
 
 **Built py3270 plugin** for 3270 terminal testing (locust-plugins PR #206).
 
@@ -317,7 +324,7 @@ $ k6 run test.js --vus 1000 --duration 24h
 **Your team already knows these tools.**
 
 **Before:**
-- $50K+/year vendor licenses
+- $$$/year vendor licenses
 - Mainframe specialists only
 - Separate CI/CD pipelines
 
