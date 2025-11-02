@@ -47,12 +47,3 @@ marp slides.md --html
 
 - [grafana/k6 PR #2892](https://github.com/grafana/k6/pull/2892) - z/OS build flags
 - [SvenskaSpel/locust-plugins PR #206](https://github.com/SvenskaSpel/locust-plugins/pull/206) - py3270 terminal testing
-
-## License
-
-MIT License - feel free to use and adapt!
-
-## Contact
-
-- Medium: [@Theropod](https://medium.com/@theropod)
-- GitHub: [Your GitHub]

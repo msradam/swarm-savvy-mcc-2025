@@ -126,7 +126,7 @@ blockquote {
 }
 
 section::after {
-  content: attr(data-marpit-pagination) ' / 23';
+  content: attr(data-marpit-pagination) ' / 22';
   position: absolute;
   bottom: 24px;
   right: 64px;
@@ -556,6 +556,8 @@ running (0m57.1s), 30/30 VUs, 999 iterations
 - 🐳 **zCX Testing** - Distributed load testing across zCX instances
 - ♾️ **Customer Simulation** - k6 running natively on z/OS UNIX System Services for 24/7 synthetic load
 
+**Business impact:** Faster developer onboarding • Rapid test creation • Native version control • CI/CD pipeline integration
+
 **Today:** Modern open-source tooling at mainframe scale.
 
 ---
@@ -618,15 +620,7 @@ class ZosMFFileUser(HttpUser):
 
 **Result:** LLM generated functional test scaffolding with proper Locust structure, randomized data, and authentication from 180 API endpoints.
 
----
-
-## The Future: Intelligent DevOps
-
-**Tomorrow:** Automated regression + manual verification + randomized testing + AI-assisted test generation.
-
-**This multi-modal testing strategy aligns with current DevOps research on quality assurance automation.**
-
-Modern tools. Mainframe scale. Radical efficiency.
+**Tomorrow:** Automated regression + manual verification + randomized testing + AI-assisted test generation—a multi-modal testing strategy that aligns with current DevOps research on quality assurance automation.
 
 ---
 
